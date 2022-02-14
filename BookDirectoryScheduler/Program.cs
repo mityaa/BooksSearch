@@ -6,7 +6,7 @@ namespace BookDirectoryScheduler
 {
     class Program
     {
-        private const string BookDir = @"C:\\Books";
+        private const string BookDir = @"C:\\Book";
         private static readonly IBookService BookService = new BookService();
 
         static void Main(string[] args)

@@ -13,6 +13,18 @@ form {
   margin: 0 auto;
   background: #A3D0C3;
 }
+li {
+  list-style-type: none;
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+  background: #d5e1df;
+  padding: 0 17px 20px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 0px;
+  flex: 1 1 0;
+  border-spacing: 0;
+}
 input, button {
   border: none;
   outline: none;

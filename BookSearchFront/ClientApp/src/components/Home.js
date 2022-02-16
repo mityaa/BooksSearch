@@ -45,6 +45,11 @@ export class Home extends Component {
       </div>
     );
   }  
+
+  async serachBookByWord(word){
+    const response = await fetch('home');
+    const data = await response.json();
+  }
 }
 
 

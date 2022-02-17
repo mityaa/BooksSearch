@@ -3,10 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataAccessLayer.Models;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
+using static System.String;
 using Path = iTextSharp.text.pdf.parser.Path;
 using SearchOption = Microsoft.VisualBasic.FileIO.SearchOption;
 
@@ -14,6 +16,8 @@ namespace BookDirectoryScheduler
 {
     static class PdfParser
     {
+        private static readonly Regex SWhitespace = new(@"\s+");
+
         public static BlockingCollection<Book> GetAllParsedBooks(string directory, Func<string, bool> ifBookExistsAction)
         {
             var files = GetAllPathsFromDirectory(directory);
@@ -48,12 +52,17 @@ namespace BookDirectoryScheduler
             {
                 var page = new Page
                 {
-                    PageText = PdfTextExtractor.GetTextFromPage(reader, i)
+                    PageText = ReplaceWhitespace(PdfTextExtractor.GetTextFromPage(reader, i), Empty)
                 };
                 book.Pages.Add(page);
             }
             reader.Close();
             return book;
+        }
+
+        private static string ReplaceWhitespace(string input, string replacement)
+        {
+            return SWhitespace.Replace(input, replacement);
         }
 
         private static IList<string> GetAllPathsFromDirectory(string directory)

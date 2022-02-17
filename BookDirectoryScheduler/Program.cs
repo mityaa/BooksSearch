@@ -6,7 +6,7 @@ namespace BookDirectoryScheduler
 {
     class Program
     {
-        private const string BookDir = @"C:\\Book";
+        private const string BookDir = @"C:\\Books";
         private static readonly IBookService BookService = new BookService();
 
         static void Main(string[] args)
@@ -23,7 +23,10 @@ namespace BookDirectoryScheduler
         {
             var books = PdfParser.GetAllParsedBooks(BookDir, BookService.IfBookExistsInDb);
             if (books.Any())
+            {
                 BookService.SaveBooksInDb(books.ToList());
+                BookService.CreatePageTextIndex();
+            }
             Console.WriteLine("Some books have been adding in db");
         }
     }

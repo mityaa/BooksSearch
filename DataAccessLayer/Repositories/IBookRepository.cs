@@ -8,6 +8,7 @@ namespace DataAccessLayer.Repositories
     {
         Task<IList<string>> GetBooksByText(string text);
         void SaveBooksInDb(IList<Book> books);
-        bool IfBookExistsInDB(string path);
+        void CreatePageTextIndex();
+        bool IfBookExistsInDb(string path);
     }
 }

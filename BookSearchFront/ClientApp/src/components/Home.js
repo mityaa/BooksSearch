@@ -8,25 +8,31 @@ export class Home extends Component {
     super(props)
     
     // Set initial state
-    this.state = { avengers: []}     
+    this.state = { 
+      searchWord: "",
+      books: []}     
     // Binding this keyword
     this.handleClick = this.handleClick.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }    
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+
+    this.setState({searchWord: value})
+  }
 
   handleSubmit(event) {
     event.preventDefault();
   }
 
-  handleClick(){   
+  async handleClick(){   
     // Changing state
+    const result = await this.serachBookByWord(this.state.searchWord)
     this.setState(({
-      avengers: this.getDataList()
-    }))
-  }
-
-  getDataList(){
-    var avengers = [ 'Iron Man', 'Captain America', 'Hulk', 'Thor', 'HawkEye'] // or query
-    return avengers
+      books: result
+    })) 
   }
 
   render () {  
@@ -34,12 +40,12 @@ export class Home extends Component {
       <div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="Искать здесь..."/>
+          <input ref="search" type="text" placeholder="Искать здесь..." onChange={this.handleInputChange}/>
           <button type="submit" onClick={this.handleClick}></button>
         </form>
         <div id="search_box-result">
-            {this.state.avengers.map((avenger) => (
-              <li>{avenger}</li>
+            {this.state.books.map((book) => (
+              <li key={book}>{book}</li>
             ))}
         </div>
       </div>
@@ -47,8 +53,14 @@ export class Home extends Component {
   }  
 
   async serachBookByWord(word){
-    const response = await fetch('home');
+    const searchParams = new URLSearchParams();
+    searchParams.append("word", word)
+
+    const response = await fetch('home?' + searchParams.toString());
     const data = await response.json();
+    console.log(data)
+
+    return data
   }
 }
 

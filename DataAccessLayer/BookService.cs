@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccessLayer.Configuration;
 using DataAccessLayer.Models;
@@ -12,6 +9,7 @@ namespace DataAccessLayer
     public interface IBookService
     {
         void SaveBooksInDb(IList<Book> books);
+        void CreatePageTextIndex();
         bool IfBookExistsInDb(string bookPath);
         Task<IList<string>> SearchBooksByWord(string word);
     }
@@ -30,9 +28,14 @@ namespace DataAccessLayer
             _bookRepository.SaveBooksInDb(books);
         }
 
+        public void CreatePageTextIndex()
+        {
+            _bookRepository.CreatePageTextIndex();
+        }
+
         public bool IfBookExistsInDb(string bookPath)
         {
-            return _bookRepository.IfBookExistsInDB(bookPath);
+            return _bookRepository.IfBookExistsInDb(bookPath);
         }
 
         public async Task<IList<string>> SearchBooksByWord(string word)

@@ -39,7 +39,7 @@ export function searchWord(word) {
     return async dispatch => {
         try {
             dispatch(loaderOn());
-            const response = await fetch('home?' + word);
+            const response = await fetch('home?word=' + word);
             const jsonData = await response.json();
 
             setTimeout(() => {

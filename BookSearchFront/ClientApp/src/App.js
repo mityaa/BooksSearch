@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { Routes, Route, Link } from "react-router-dom";
-import { Home } from './components/Home';
+import { Provider } from 'react-redux';
+import { createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
+import { rootReducer } from './redux/rootReducer';
+import Home from './components/Home';
 import './custom.css'
 
-export default class App extends Component {
-  static displayName = App.name;
+const store = createStore(rootReducer, compose(
+  applyMiddleware(thunk)), 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+); 
 
-  render () {
-    return (
-        <Route exact path='/' component={Home} />
-    );
-  }
+function App (){
+  return (
+  <Provider store={store}>
+  <Route exact path='/' component={Home} />
+</Provider>
+  )
 }
+
+
+
+export default App;

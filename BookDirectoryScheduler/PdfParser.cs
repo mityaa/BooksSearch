@@ -2,15 +2,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataAccessLayer.Models;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using static System.String;
-using Path = iTextSharp.text.pdf.parser.Path;
-using SearchOption = Microsoft.VisualBasic.FileIO.SearchOption;
 
 namespace BookDirectoryScheduler
 {

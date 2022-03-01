@@ -24,6 +24,7 @@ li {
   -ms-flex: 1 1 0px;
   flex: 1 1 0;
   border-spacing: 0;
+  display: block;
 }
 input, button {
   border: none;

@@ -51,7 +51,7 @@ namespace DataAccessLayer.Repositories
             {
                 var booksInDb = GetBooksMongoCollection();
                 var filter = Builders<Book>.Filter.Eq(x => x.BookFilePath, path);
-                var res = booksInDb.FindSync(filter).First();
+                var res = booksInDb.FindSync(filter).Any();
 
                 return res != null;
             }

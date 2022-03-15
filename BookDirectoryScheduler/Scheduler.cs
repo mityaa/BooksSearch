@@ -33,8 +33,6 @@ namespace BookDirectoryScheduler
 
         private static void TriggerScheduler(TimeSpan timeInMillSec, Action task)
         {
-            var IsOperationRunning = false;
-
             while (true)
             {
                 Thread.Sleep(timeInMillSec);

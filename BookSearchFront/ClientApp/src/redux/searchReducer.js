@@ -1,4 +1,4 @@
-import { SEARCH } from './types';
+import { SEARCH, SEARCH_RESET } from './types';
 
 const initialState = {
     books: []
@@ -11,8 +11,9 @@ export const searchReducer = (state = initialState, action) => {
                 ...state,
                 books: [...state.books, action.data]
             }
-
-            default:
-                return state;
+        case SEARCH_RESET:
+            return initialState;
+        default:
+             return state;
     }
 }

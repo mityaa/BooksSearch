@@ -1,5 +1,6 @@
 import {
     SEARCH,
+    SEARCH_RESET,
     LOADER_DISPLAY_ON,
     LOADER_DISPLAY_OFF,
     ERROR_DISPLAY_ON,
@@ -31,8 +32,14 @@ export function loaderOn() {
   }
   export function errorOff() {
     return {
-      type: ERROR_DISPLAY_OFF,
+      type: ERROR_DISPLAY_OFF
     }
+  }
+
+  export function resetSearchResult() {
+        return {
+          type: SEARCH_RESET
+        }
   }
 
 export function searchWord(word) {

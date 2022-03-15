@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DataAccessLayer.Configuration.Interfaces;
 using DataAccessLayer.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Operations;
 using MongoDB.Driver.Linq;
 using static System.String;
 
@@ -18,17 +20,18 @@ namespace DataAccessLayer.Repositories
         public BookRepository(IAppSettings appSettings) : base(appSettings)
         {
         }
-
+        
         public async Task<IList<string>> GetBooksByText(string text)
         {
+            var result = new List<string>();
             //clear whitespaces as we do in parser
             text = _sWhitespace.Replace(text, Empty);
-            var booksInDb = await GetBooksMongoCollection()
+            await GetBooksMongoCollection()
                 .Find(new BsonDocument("$text", new BsonDocument("$search", text)))
-                .ToListAsync();
+                .ForEachAsync(x => result.Add(x.BookFilePath));
 
 
-            return booksInDb.Select(x => x.BookFilePath).ToList();
+            return result;
         }
 
         public async void SaveBooksInDb(IList<Book> books)
@@ -53,9 +56,9 @@ namespace DataAccessLayer.Repositories
                 var filter = Builders<Book>.Filter.Eq(x => x.BookFilePath, path);
                 var res = booksInDb.FindSync(filter).Any();
 
-                return res != null;
+                return res;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -63,7 +66,7 @@ namespace DataAccessLayer.Repositories
 
         private IMongoCollection<Book> GetBooksMongoCollection()
         {
-            return _mongoDatabase.GetCollection<Book>("Books");
+            return MongoDatabase.GetCollection<Book>("Books");
         }
     }
 }

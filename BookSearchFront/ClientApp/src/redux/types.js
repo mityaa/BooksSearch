@@ -1,4 +1,5 @@
-export const SEARCH = 'SEARCH'
+export const SEARCH = 'SEARCH';
+export const SEARCH_RESET = 'SEARCH_RESET';
 
 export const LOADER_DISPLAY_ON = 'LOADER_DISPLAY_ON';
 export const LOADER_DISPLAY_OFF = 'LOADER_DISPLAY_OFF';

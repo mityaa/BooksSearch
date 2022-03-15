@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { searchWord } from '../redux/actions';
+import { searchWord, resetSearchResult } from '../redux/actions';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { errorFallback } from '../helpers/errorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -31,6 +31,7 @@ function Home(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    resetSearchResult();
     dispatch(searchWord(wordToSearch));
   }
   

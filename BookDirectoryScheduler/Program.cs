@@ -27,6 +27,7 @@ namespace BookDirectoryScheduler
                 BookService.SaveBooksInDb(books.ToList());
                 BookService.CreatePageTextIndex();
             }
+
             Console.WriteLine("Some books have been adding in db");
         }
     }

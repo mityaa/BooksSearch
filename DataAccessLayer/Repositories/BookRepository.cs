@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DataAccessLayer.Configuration.Interfaces;
+using Configuration.Interfaces;
 using DataAccessLayer.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;

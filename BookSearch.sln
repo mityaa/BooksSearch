@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSearchFront", "BookSearchFront\BookSearchFront.csproj", "{18126823-FF6F-46AC-9050-6FB49FF588AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{B15EB61A-7E83-4E15-96D2-C6AA5D31A6C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{18126823-FF6F-46AC-9050-6FB49FF588AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18126823-FF6F-46AC-9050-6FB49FF588AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18126823-FF6F-46AC-9050-6FB49FF588AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B15EB61A-7E83-4E15-96D2-C6AA5D31A6C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15EB61A-7E83-4E15-96D2-C6AA5D31A6C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15EB61A-7E83-4E15-96D2-C6AA5D31A6C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15EB61A-7E83-4E15-96D2-C6AA5D31A6C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

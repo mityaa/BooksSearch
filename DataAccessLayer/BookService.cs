@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DataAccessLayer.Configuration;
+using Configuration;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
 

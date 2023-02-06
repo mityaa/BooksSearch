@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Configuration;
+using DataAccessLayer;
 using DataAccessLayer.Models;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
@@ -11,18 +13,25 @@ using static System.String;
 
 namespace BookDirectoryScheduler
 {
-    static class PdfParser
+    internal class PdfParser
     {
-        private static readonly Regex SWhitespace = new(@"\s+");
+        private readonly Regex _sWhitespace = new(@"\s+");
+        private readonly IBookService _bookService;
 
-        public static BlockingCollection<Book> GetAllParsedBooks(string directory, Func<string, bool> ifBookExistsAction)
+        internal PdfParser()
+        {
+            _bookService = new BookService();
+
+        }
+
+        public BlockingCollection<Book> GetAllParsedBooks(string directory)
         {
             var files = GetAllPathsFromDirectory(directory);
             var threadSavedFiles = new BlockingCollection<string>(new ConcurrentQueue<string>(files));
 
             foreach (var file in threadSavedFiles)
             {
-                if (!ifBookExistsAction(file)) continue;
+                if (!_bookService.IfBookExistsInDb(file)) continue;
 
                 while (threadSavedFiles.TryTake(out _, TimeSpan.FromMilliseconds(100)))
                 {
@@ -40,7 +49,7 @@ namespace BookDirectoryScheduler
             return parsedFiles;
         }
 
-        private static Book ParseBook(string path)
+        private Book ParseBook(string path)
         {
             var reader = new PdfReader(path);
             var book = new Book { Pages = new List<Page>(), BookFilePath = path};
@@ -57,12 +66,12 @@ namespace BookDirectoryScheduler
             return book;
         }
 
-        private static string ReplaceWhitespace(string input, string replacement)
+        private string ReplaceWhitespace(string input, string replacement)
         {
-            return SWhitespace.Replace(input, replacement);
+            return _sWhitespace.Replace(input, replacement);
         }
 
-        private static IList<string> GetAllPathsFromDirectory(string directory)
+        private IEnumerable<string> GetAllPathsFromDirectory(string directory)
         {
             return Directory.GetFiles(directory, "*.pdf");
         }

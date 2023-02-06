@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Configuration.Interfaces;
+﻿using Configuration.Interfaces;
 using MongoDB.Driver;
 
 namespace DataAccessLayer.Repositories
